@@ -77,6 +77,7 @@ if (isset($randstring) && isset($_POST['passlength'])) {
                     <span class="input-group-text">@</span>
                     <input type="text" class="form-control" placeholder="Server" aria-label="Server"> -->
                 <!-- </div> -->
+                <div></div>
 
             </div>
         </form>
