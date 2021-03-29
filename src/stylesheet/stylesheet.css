@@ -1,15 +1,42 @@
-body,
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
 html {
-    margin: 0;
     height: 100%;
+    margin: 0;
+}
+
+body {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .content {
+    flex: 1 0;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100%;
-    background-color: #666666;
+    text-align: center;
+    min-height: 100%;
+    margin-bottom: -50px;
 }
 
-button {}
+footer.footer {
+    font-size: .9rem;
+    height: 10%;
+}
+
+footer.footer .footer-content {
+    text-align: left;
+    padding-top: 3%;
+    padding-left: 2%;
+    padding-bottom: 1%;
+    background-color: #66AAFF;
+}
+
+footer .footer-content .year {
+    text-align: left;
+}
