@@ -1,39 +1,3 @@
-<?php
-$alphabetUpper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-$alphabetLower = "abcdefghijklmnopqrstuvwxyz";
-$digits = "0123456789";
-$types = [];
-$randstring = '';
-
-if (isset($randstring) && isset($_POST['passlength'])) {
-    $passlength = $_POST['passlength'];
-    if (isset($_POST['type1'])) {
-        $typeNumber = $_POST['type1'];
-        if ($typeNumber == 'number') {
-            $types[] = $digits;
-        }
-    }
-    if (isset($_POST['type2'])) {
-        $typelowercase = $_POST['type2'];
-        if ($typelowercase == 'lowercase') {
-            $types[] = $alphabetLower;
-        }
-    }
-    if (isset($_POST['type3'])) {
-        $typeuppercase = $_POST['type3'];
-        if ($typeuppercase == 'uppercase') {
-            $types[] = $alphabetUpper;
-        }
-    }
-    for ($i = 1; $i <= $passlength; $i++) {
-        // Pega um dos elementos do array TYPES randomicamente
-        $randType = $types[rand(0, count($types) - 1)];
-        // var_dump($randType);
-        $randstring .= $randType[rand(0, strlen($randType) - 1)];
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,6 +11,7 @@ if (isset($randstring) && isset($_POST['passlength'])) {
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    <?php include 'process.php'; ?>
 </head>
 
 <body>
@@ -54,17 +19,16 @@ if (isset($randstring) && isset($_POST['passlength'])) {
         <nav class="navbar navbar-light bg-light">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
-                    <img src="https://image.flaticon.com/icons/png/512/102/102643.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
-                    Pass Generator
+                    <img src="https://image.flaticon.com/icons/png/512/102/102643.png" alt="" width="30" height="24" class="d-inline-block align-text-top"> Pass Generator
                 </a>
             </div>
         </nav>
     </header>
     <div class="content">
-        <form method="post">
+        <form id="passgen-form" method="POST" action="">
             <div class="form-check">
                 <label for="">Tamanho</label>
-                <input class="form-control" type="number" name="passlength" id="">
+                <input class="form-control" type="number" name="passlength" id="passlength">
                 <label for="">Senha</label>
                 <input class="form-control" type="text" name="" id="" value="<?= $randstring ?>" readonly>
                 <button class="btn btn-success" id="checkBtn">Gerar</button><br>
@@ -77,11 +41,38 @@ if (isset($randstring) && isset($_POST['passlength'])) {
 
             </div>
         </form>
+        <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script>
+            // $(document).ready(function() {
+            //     $('#passgen-form').on('submit', function(e) {
+            //         //Stop the form from submitting itself to the server.
+            //         e.preventDefault();
+            //         // var passlenght = $('#passlenght').val();
+            //         var type1 = $('#type1').val();
+            //         // var type2 = $('#type2').val();
+            //         // var type3 = $('#type3').val();
+            //         $.ajax({
+            //             type: "POST",
+            //             url: 'process.php',
+            //             data: {
+            //                 // passlenght: passlenght,
+            //                 type1: type1,
+            //                 // type2: type2,
+            //                 // type3: type3,
+            //             },
+            //             success: function(data) {
+            //                 alert(data);
+            //             }
+            //         });
+            //     });
+            // });
+        </script>
     </div>
     <footer class="footer">
         <div class="footer-content">
             <div class="text">Developed with ❤️ and 💪🏽 by a Student.<br>
-                <div class="year">@ <?= date("Y") ?> Goulart, José</div>
+                <div class="year">@
+                    <?= date("Y") ?> Goulart, José</div>
             </div>
         </div>
 
@@ -94,17 +85,33 @@ if (isset($randstring) && isset($_POST['passlength'])) {
 
             if (checked > 1) {
                 if ('input[type=checkbox]:checked') {
-                    $('input[type=checkbox]:checked').prop('disabled', false);
+                    $('input[type=checkbox]:checked').attr('onclick', 'return true');
                 }
             }
             if (checked <= 1) {
                 if ('input[type=checkbox]:checked') {
-                    $('input[type=checkbox]:checked').prop('disabled', true);
+                    $('input[type=checkbox]:checked').attr('onclick', 'return false');
                 }
 
             }
         });
     });
+    //     $('#contactform').submit(function(e) {
+    //     e.preventDefault();
+    //     const nome = $('input[name="passlength"]').val();
+    //     $.ajax({
+    //         url: 'index.php', // caminho para o script que vai processar os dados
+    //         type: 'POST',
+    //         data: {nome: nome},
+    //         success: function(response) {
+    //             $('#resp').html(response);
+    //         },
+    //         error: function(xhr, status, error) {
+    //             alert(xhr.responseText);
+    //         }
+    //     });
+    //     return false;
+    // });
 </script>
 
 </html>
